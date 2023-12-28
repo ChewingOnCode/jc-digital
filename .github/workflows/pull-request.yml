@@ -14,13 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
-    # Other PR job steps
-    # - name: Run tests
 
   build:
     runs-on: ubuntu-latest
@@ -30,17 +26,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - run: npm install
       - run: npm run build
-
-      - name: Skip Tests
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "Skipping tests for PR"
 
   release:
     if: github.event.pull_request.merged == true
@@ -49,19 +40,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
 
       - name: Create Release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          MY_PAT: ${{ secrets.MY_PAT }}
+        run: |
+          npm run release
+          git push --follow-tags origin main
