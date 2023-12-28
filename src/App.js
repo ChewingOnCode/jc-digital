@@ -1,9 +1,12 @@
 import "./App.css";
 
+import Home from "./Components/Home/Home";
+import { Route } from "react-router";
+
 function App() {
   return (
     <div className='App'>
-      <h1>Welcome to My Portfolio</h1>
+      <Route path='/' element={<Home />} />
     </div>
   );
 }
