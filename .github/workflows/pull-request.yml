@@ -1,0 +1,42 @@
+name: PR on Push & Version on Merge
+
+on:
+  push:
+    branches:
+      - development
+
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  pull-request:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "development"
+          destination_branch: "main"
+          pr_title: "Development to Main"
+          pr_body: "An automatic PR from the development branch"
+          pr_label: "auto-pr"
+          pr_allow_empty: true
+
+  version:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Version
+        run: |
+          npm install
+          npm run version
+        env:
+          MY_PAT: ${{ secrets.MY_PAT }}
