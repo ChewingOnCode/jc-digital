@@ -1,4 +1,4 @@
-name: PR on Push & Version on Merge
+name: PR on Push & Release on Merge
 
 on:
   push:
@@ -11,32 +11,52 @@ on:
 
 jobs:
   pull-request:
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+    # Other PR job steps
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Pull Request
-        uses: repo-sync/pull-request@v2
+      - uses: actions/setup-node@v2
         with:
-          source_branch: "development"
-          destination_branch: "main"
-          pr_title: "Development to Main"
-          pr_body: "An automatic PR from the development branch"
-          pr_label: "auto-pr"
-          pr_allow_empty: true
+          node-version: 16
 
-  version:
+      - run: npm install
+      - run: npm run build
+
+  release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    needs: [pull-request, build]
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Version
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Configure Git
         run: |
-          npm install
-          npm run version
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          package-name: my-package
         env:
-          MY_PAT: ${{ secrets.MY_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
