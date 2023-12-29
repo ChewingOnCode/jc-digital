@@ -18,10 +18,7 @@
 <body>
 
     <!-- Certifications Section -->
-    <!-- Add this to the Certifications Section -->
     <section id="certifications" class="section">
-        <!-- Vendor Filter Dropdown -->
-        <!-- ... (unchanged) -->
 
         <!-- Certification Cards Container -->
         <div id="certifications-container" class="columns is-multiline">
@@ -29,25 +26,40 @@
         </div>
 
         <!-- Certificate Counts -->
-        <div class="has-text-centered">
-            <div class="vendor-count-container" data-vendor="vendor1">
-                <!-- Vendor Icon -->
-                <span class="icon is-medium vendor-icon">
-                    <!-- Replace 'your-icon' with the actual class or SVG for the vendor icon -->
-                    <title>Udemy</title>
-                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
-                    </svg>
-                </span>
+        <div class="columns is-multiline">
+            <div class="column is-half-tablet is-one-third-desktop">
+                <div class="card vendor-card" data-vendor="vendor1">
+                    <header class="card-header">
+                        <!-- Vendor Icon -->
+                        <span class="card-header-icon">
+                            <span class="icon is-medium">
+                                <!-- Replace 'your-icon' with the actual class or SVG for the vendor icon -->
+                                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <title>Udemy</title>
+                                    <path
+                                        d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
+                                </svg>
+                            </span>
+                        </span>
 
-                <!-- Vendor Name -->
-                <p class="vendor-name">Vendor 1</p>
+                        <!-- Vendor Name -->
+                        <p class="card-header-title vendor-name">Vendor 1</p>
+                    </header>
 
-                <!-- Certificate Count -->
-                <p class="certificate-count">Certificates: <span>0</span></p>
+                    <!-- Certificate Count -->
+                    <div class="card-content">
+                        <div class="content has-text-centered">
+                            Certificates: <span>0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Add more vendor count containers as needed -->
+
+            <div class="column is-half-tablet is-one-third-desktop">
+                <!-- Add more vendor cards as needed -->
+            </div>
+
+            <!-- ... (Repeat the above structure for each vendor) -->
         </div>
 
         <!-- Link to Certifications Page at the Bottom -->
