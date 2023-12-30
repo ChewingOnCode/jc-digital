@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Sample blog posts data (replace this with your actual data)
   var blogPosts = [
-    { title: "Post 1", content: "Content for post 1...", date: "12/12/2023" },
+    {
+      title: "Post 1",
+      content: "Content for post 1...",
+      date: "12/12/2023",
+      cover: "/dist/assets/cover.png",
+    },
     { title: "Post 2", content: "Content for post 2...", date: "12/13/2023" },
     // Add more posts as needed
   ];
@@ -25,6 +30,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create a card for the post
     var cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
+    cardDiv.classList.add(
+      "is-flex",
+      "is-flex-direction-column",
+      "is-justify-content-center",
+      "is-align-items-center"
+    );
+
+    // Create card image
+    var cardImageDiv = document.createElement("div");
+    cardImageDiv.classList.add("card-image");
+    var postImage = document.createElement("img");
+    postImage.src = post.cover;
+    postImage.alt = post.title;
+    cardImageDiv.appendChild(postImage);
+    cardDiv.appendChild(cardImageDiv);
 
     // Create card content
     var cardContentDiv = document.createElement("div");
@@ -58,6 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Append the column to the container
     container.appendChild(columnDiv);
+
+    // Create "Read More" button
+    var readMoreButton = document.createElement("a");
+    readMoreButton.classList.add("button", "is-link", "is-small");
+    readMoreButton.textContent = "Read More";
+    readMoreButton.href =
+      "post.html#" + post.title.toLowerCase().replace(/\s+/g, "-");
+    // Append the "Read More" button to the card content
+    cardContentDiv.appendChild(readMoreButton);
   }
 
   // Render the older posts on the blog.html
