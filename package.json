@@ -5,7 +5,9 @@
   "main": "script.js",
   "scripts": {
     "deploy": "gh-pages -d dist",
+    "build": "cp -r src/ build", 
     "test": "jest"
+
   },
   "keywords": [],
   "author": "",
