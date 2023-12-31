@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Sample certification data (replace this with your actual data)
   const certifications = [
     {
-      title: "Certification 1",
+      title: "Mobile-First Responsive Website Build (with CSS Grid)",
       body: "Certification Body 1",
       date: "12/20/2023",
     },
